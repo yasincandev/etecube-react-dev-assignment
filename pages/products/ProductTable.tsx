@@ -36,7 +36,7 @@ const ProductTable: FC<ProductsProps> = ({
   const onFinishEdit = async (id: string, values: FormValues) => {
     const { data } = await axios.put(`/api/product/${id}`, values)
     if (data) {
-      setProducts((prev) => prev.map((p) => (p._id === id ? data.data : p)))
+      setProducts((prev) => prev?.map((p) => (p._id === id ? data.data : p)))
     } else {
       console.log('Error')
     }
@@ -93,10 +93,10 @@ const ProductTable: FC<ProductsProps> = ({
       <Card>
         <Table
           columns={columns}
-          dataSource={products.map((p) => ({
+          dataSource={products?.map((p) => ({
             ...p,
             key: p?._id || '',
-            company: companies.find((c) => c._id === p.company)?.name,
+            company: companies?.find((c) => c._id === p.company)?.name,
           }))}
           pagination={{ pageSize: 5, position: ['bottomCenter'] }}
         />

@@ -37,7 +37,7 @@ const CompanyTable: FC<CompaniesProps> = ({ companies: companiesData }) => {
   const onEditFinish = async (_id: string, values: FormValues) => {
     const { data } = await axios.put(`/api/company/${_id}`, values)
     if (data) {
-      setCompanies((prev) => prev.map((p) => (p._id === _id ? data.data : p)))
+      setCompanies((prev) => prev?.map((p) => (p._id === _id ? data.data : p)))
     } else {
       return (
         <Alert
@@ -118,7 +118,7 @@ const CompanyTable: FC<CompaniesProps> = ({ companies: companiesData }) => {
       <Card>
         <Table
           columns={columns}
-          dataSource={companies.map((c) => ({ ...c, key: c._id }))}
+          dataSource={companies?.map((c) => ({ ...c, key: c._id }))}
           pagination={{ pageSize: 5, position: ['bottomCenter'] }}
           loading={loading}
         />

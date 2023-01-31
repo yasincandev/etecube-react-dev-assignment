@@ -86,7 +86,7 @@ const AddForm: FC<FormProps> = ({ onFinish, companies, form }) => {
       >
         <Input />
       </Form.Item>
-      {companies.length > 0 && (
+      {companies?.length > 0 && (
         <Form.Item
           label="Related Company"
           name="company"
