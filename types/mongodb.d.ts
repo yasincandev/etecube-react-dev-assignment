@@ -4,7 +4,7 @@ import { MongoClient } from 'mongodb'
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      MONGODB_URL: string
+      MONGODB_URI: string
       NODE_ENV: 'development' | 'production'
     }
   }

@@ -1,13 +1,13 @@
 import mongoose from 'mongoose'
 
-if (!process.env.MONGODB_URL) {
-  throw new Error('MONGODB_URL must be defined')
+if (!process.env.MONGODB_URI) {
+  throw new Error('MONGODB_URI must be defined')
 }
 
-const MONGODB_URL = process.env.MONGODB_URL
+const MONGODB_URI = process.env.MONGODB_URI
 
-if (!MONGODB_URL) {
-  throw new Error('MONGODB_URL must be defined')
+if (!MONGODB_URI) {
+  throw new Error('MONGODB_URI must be defined')
 }
 
 let cached = global.mongoose
@@ -25,7 +25,7 @@ async function dbConnect() {
       bufferCommands: true,
     }
 
-    cached.promise = mongoose.connect(MONGODB_URL, opts).then((mongoose) => {
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
       return mongoose
     })
   }

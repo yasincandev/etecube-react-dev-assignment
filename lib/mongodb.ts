@@ -1,14 +1,14 @@
 import { MongoClient } from 'mongodb'
 
-const URL = process.env.MONGODB_URL
+const URL = process.env.MONGODB_URI
 
 if (!URL) {
   throw new Error(
-    'Please define the MONGODB_URL environment variable inside .env.local'
+    'Please define the MONGODB_URI environment variable inside .env.local'
   )
 }
-if (!process.env.MONGODB_URL) {
-  throw new Error('Invalid/Missing environment variable: "MONGODB_URL"')
+if (!process.env.MONGODB_URI) {
+  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"')
 }
 
 let client: MongoClient
