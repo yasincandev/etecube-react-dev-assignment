@@ -10,8 +10,6 @@ type FormProps = {
 }
 
 const AddForm: FC<FormProps> = ({ onFinish, companies, form }) => {
-  console.log(companies)
-
   const categories: string[] = [
     'Electronics',
     'Tools & Home Improvement',

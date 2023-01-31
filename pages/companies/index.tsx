@@ -9,8 +9,6 @@ type CompaniesProps = {
 }
 
 const Companies: NextPage<CompaniesProps> = ({ companies }) => {
-  console.log(companies)
-
   return (
     <PrivateRoute>
       <Table companies={companies} />

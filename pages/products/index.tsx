@@ -13,7 +13,6 @@ type ProductsProps = {
 }
 
 const Products: NextPage<ProductsProps> = ({ products, companies }) => {
-  console.log(companies)
   return (
     <PrivateRoute>
       <ProductTable

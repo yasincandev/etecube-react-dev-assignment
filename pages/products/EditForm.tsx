@@ -11,8 +11,6 @@ type FormProps = {
 }
 
 const EditForm: FC<FormProps> = ({ onFinish, companies, form, product }) => {
-  console.log(companies)
-
   useEffect(() => {
     if (product) {
       form.setFieldsValue({

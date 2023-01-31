@@ -26,7 +26,6 @@ const ProductTable: FC<ProductsProps> = ({
   const [form] = Form.useForm()
 
   const onFinish = async (values: FormValues) => {
-    console.log('values', values)
     setLoading(true)
     const { data } = await axios.post('/api/product', values)
     setProducts((prev) => [...prev, data.data])
@@ -35,9 +34,7 @@ const ProductTable: FC<ProductsProps> = ({
   }
 
   const onFinishEdit = async (id: string, values: FormValues) => {
-    console.log('values', values)
     const { data } = await axios.put(`/api/product/${id}`, values)
-    console.log('data', data)
     if (data) {
       setProducts((prev) => prev.map((p) => (p._id === id ? data.data : p)))
     } else {
@@ -70,7 +67,6 @@ const ProductTable: FC<ProductsProps> = ({
     try {
       const { data } = await axios.delete(`/api/product/${id}`)
       setProducts((prev) => prev.filter((p) => p._id !== id))
-      console.log('Success:', data)
     } catch (error) {
       console.error(error)
     }
