@@ -104,7 +104,7 @@ const CompanyTable: FC<CompaniesProps> = ({ companies: companiesData }) => {
   })
 
   return (
-    <div style={{ padding: 24 }}>
+    <>
       <Head>
         <title>Companies</title>
       </Head>
@@ -146,7 +146,7 @@ const CompanyTable: FC<CompaniesProps> = ({ companies: companiesData }) => {
           form={form}
         />
       </Modal>
-    </div>
+    </>
   )
 }
 

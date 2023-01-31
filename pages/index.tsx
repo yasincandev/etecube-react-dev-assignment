@@ -1,5 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next'
-import { Card, Col, Divider, Row } from 'antd'
+import { Card, Col, Divider, List, Row, Typography } from 'antd'
 import { Companies } from '@/types/company'
 import { PrivateRoute } from '@/components'
 import CompanyTable from './companies/CompanyTable'
@@ -16,6 +16,7 @@ import {
   ChartData,
 } from 'chart.js'
 import { Pie } from 'react-chartjs-2'
+import { Container, StyledGrid, StyledPie, StyledTable } from '@/styles'
 
 interface HomeProps {
   companies: Companies
@@ -42,23 +43,55 @@ export const Home: NextPage<HomeProps> = ({
           )
           return companyProducts.length
         }),
-        backgroundColor: companies.map(() => {
-          const color = Math.floor(0x1000000 * Math.random()).toString(16)
-          return '#' + ('000000' + color).slice(-6)
-        }),
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)',
+        ],
 
         borderWidth: 1,
       },
     ],
   }
 
+  const config = {
+    type: 'pie',
+    plugins: {
+      subtitle: {
+        display: true,
+        text: 'Custom Chart Subtitle',
+      },
+      customCanvasBackgroundColor: {
+        backgroundColor: 'white',
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      onResize: () => {
+        console.log('resize')
+      },
+    },
+  }
+
+  const companiesWithProducts = companies.map((company) => {
+    const companyProducts = products.filter(
+      (product) => product.company?.toString() === company._id.toString()
+    )
+    return companyProducts.length
+  })
+
+  console.log(companiesWithProducts)
+
   return (
     <PrivateRoute>
       <Container>
-        <Row gutter={[16, 16]}>
+        <Row
+          gutter={[16, 16]}
+          justify="center"
+        >
           <Col
-            sm={24}
+            sm={12}
             md={12}
+            lg={8}
           >
             <Card
               title="Companies"
@@ -68,50 +101,45 @@ export const Home: NextPage<HomeProps> = ({
             </Card>
           </Col>
           <Col
-            sm={24}
+            sm={12}
             md={12}
+            lg={8}
           >
             <Card
               title="Products"
               bordered={false}
-              style={{ width: '100%' }}
             >
               There are {products.length} products in the system
             </Card>
           </Col>
-          <Divider />
           <Col
-            sm={24}
+            sm={12}
             md={12}
-          >
-            {/*   <Card
-              title="Companies Have Most Products Pie Chart"
-              bordered={false}
-            > */}
-            <StyledPie
-              data={data}
-              options={{
-                responsive: true,
-              }}
-              style={{
-                backgroundColor: 'white',
-                padding: '10px',
-                borderRadius: '10px',
-              }}
-            />
-            {/*    </Card> */}
-          </Col>
-          <Col
-            sm={24}
-            md={12}
+            lg={8}
           >
             <Card
-              title="Last Three Companies"
+              title="Companies and Products"
               bordered={false}
-              style={{ width: '100%', overflowX: 'auto' }}
             >
-              <CompanyTable companies={lastThreeCompanies} />
+              The Most Products are in{' '}
+              {
+                companies[
+                  companiesWithProducts.indexOf(
+                    Math.max(...companiesWithProducts)
+                  )
+                ].name
+              }
             </Card>
+          </Col>
+
+          <Col span={24}>
+            <Typography.Title
+              level={3}
+              style={{ textAlign: 'center' }}
+            >
+              Last Three Companies
+            </Typography.Title>
+            <CompanyTable companies={lastThreeCompanies} />
           </Col>
         </Row>
       </Container>
@@ -139,65 +167,3 @@ export const getServerSideProps: GetServerSideProps = async () => {
     },
   }
 }
-
-const Container = styled.div`
-  padding: 20px;
-  overflow-y: auto;
-  -webkit-animation: Container 0.5s cubic-bezier(0.47, 0, 0.745, 0.715) both;
-  animation: Container 0.5s cubic-bezier(0.47, 0, 0.745, 0.715) both;
-
-  @media (max-width: 768px) {
-    padding: 10px;
-  }
-
-  @-webkit-keyframes Container {
-    0% {
-      -webkit-transform: translateX(1000px) scaleX(2.5) scaleY(0.2);
-      transform: translateX(1000px) scaleX(2.5) scaleY(0.2);
-      -webkit-transform-origin: 0% 50%;
-      transform-origin: 0% 50%;
-      -webkit-filter: blur(40px);
-      filter: blur(40px);
-      opacity: 0;
-    }
-    100% {
-      -webkit-transform: translateX(0) scaleY(1) scaleX(1);
-      transform: translateX(0) scaleY(1) scaleX(1);
-      -webkit-transform-origin: 50% 50%;
-      transform-origin: 50% 50%;
-      -webkit-filter: blur(0);
-      filter: blur(0);
-      opacity: 1;
-    }
-  }
-  @keyframes Container {
-    0% {
-      -webkit-transform: translateX(1000px) scaleX(2.5) scaleY(0.2);
-      transform: translateX(1000px) scaleX(2.5) scaleY(0.2);
-      -webkit-transform-origin: 0% 50%;
-      transform-origin: 0% 50%;
-      -webkit-filter: blur(40px);
-      filter: blur(40px);
-      opacity: 0;
-    }
-    100% {
-      -webkit-transform: translateX(0) scaleY(1) scaleX(1);
-      transform: translateX(0) scaleY(1) scaleX(1);
-      -webkit-transform-origin: 50% 50%;
-      transform-origin: 50% 50%;
-      -webkit-filter: blur(0);
-      filter: blur(0);
-      opacity: 1;
-    }
-  }
-`
-
-const StyledPie = styled(Pie)`
-  background-color: white;
-  padding: 10px;
-  border-radius: 10px;
-
-  @media (max-width: 768px) {
-    padding: 5px;
-  }
-`

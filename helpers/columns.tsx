@@ -21,25 +21,25 @@ export const getCompanyColumns = ({
     key: 'legalNumber',
     title: 'Legal Number',
     dataIndex: 'legalNumber',
-    responsive: ['md'],
+    responsive: ['sm'],
   },
   {
     key: 'incorporationCountry',
     title: 'Incorporation Country',
     dataIndex: 'incorporationCountry',
-    responsive: ['md'],
+    responsive: ['sm'],
   },
   {
     key: 'website',
     title: 'Website',
     dataIndex: 'website',
-    responsive: ['md'],
+    responsive: ['sm'],
   },
   {
     key: 'actions',
     title: 'Actions',
     dataIndex: 'actions',
-    responsive: ['md'],
+    responsive: ['sm'],
     render(_value, record) {
       return (
         <>
