@@ -1,6 +1,3 @@
-import CompanyTable from '@/pages/companies/CompanyTable'
-import { Card, Table } from 'antd'
-import { Pie } from 'react-chartjs-2'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -53,35 +50,4 @@ export const Container = styled.div`
       opacity: 1;
     }
   }
-`
-
-export const StyledGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
-  gap: 0px 1em;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    flex-direction: column;
-  }
-`
-
-export const StyledPie = styled(Pie)`
-  background-color: white;
-  padding: 10px;
-  border-radius: 10px;
-
-  @media (max-width: 768px) {
-    padding: 5px;
-  }
-`
-
-export const StyledTable = styled(Table)`
-  background-color: white;
-  border-radius: 10px;
-  padding: 10px;
-  overflow-x: auto;
-  max-width: 200px;
 `
